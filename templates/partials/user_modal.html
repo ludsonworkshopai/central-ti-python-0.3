@@ -1,0 +1,44 @@
+<div class="modal fade" id="modalNovoUsuario" tabindex="-1" aria-labelledby="modalNovoUsuarioLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <form id="form-novo-usuario" novalidate>
+        <div class="modal-header">
+          <h2 class="modal-title fs-6 fw-semibold" id="modalNovoUsuarioLabel">Novo usuário</h2>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+        </div>
+        <div class="modal-body d-flex flex-column gap-3">
+          <div>
+            <label for="usuario-nome" class="form-label">Nome completo</label>
+            <input type="text" id="usuario-nome" class="form-control" autocomplete="name" maxlength="255" aria-describedby="usuario-nome-ajuda" />
+          </div>
+          <div>
+            <label for="usuario-email" class="form-label">E-mail corporativo</label>
+            <input type="email" id="usuario-email" class="form-control" autocomplete="email" />
+          </div>
+          <div>
+            <label for="usuario-senha" class="form-label">Senha</label>
+            <input type="password" id="usuario-senha" class="form-control" autocomplete="new-password" />
+          </div>
+          <div>
+            <label for="usuario-senha-confirmar" class="form-label">Repetir senha</label>
+            <input type="password" id="usuario-senha-confirmar" class="form-control" autocomplete="new-password" />
+          </div>
+          <div>
+            <label for="usuario-funcao" class="form-label">Função</label>
+            <select id="usuario-funcao" name="funcao" class="form-select" required>
+              <option value="0">Técnico</option>
+              <option value="1" selected>Funcionário</option>
+            </select>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-ghost" data-bs-dismiss="modal">Cancelar</button>
+          <button type="submit" class="btn btn-primary d-inline-flex align-items-center justify-content-center gap-2" id="btn-cadastrar-usuario">
+            <span id="spinner-cadastrar" class="spinner-border spinner-border-sm d-none" aria-hidden="true"></span>
+            <span id="texto-cadastrar">Cadastrar</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

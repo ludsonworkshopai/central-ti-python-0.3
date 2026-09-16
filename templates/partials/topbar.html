@@ -1,0 +1,44 @@
+<header class="app-topbar">
+  <form class="app-search" role="search" id="form-busca-global">
+    <i class="bi bi-search" aria-hidden="true"></i>
+    <input type="search" class="form-control" placeholder="Buscar por número, solicitante, local ou assunto"
+           aria-label="Busca global de chamados" id="input-busca-global" />
+  </form>
+
+  <div class="ms-auto d-flex align-items-center gap-2">
+    <div class="dropdown">
+      <button type="button" class="btn btn-ghost position-relative d-inline-flex align-items-center justify-content-center"
+              style="height:2.25rem;width:2.25rem;" aria-label="Notificações" data-bs-toggle="dropdown" aria-expanded="false">
+        <i class="bi bi-bell fs-5" aria-hidden="true"></i>
+        <span class="notif-dot"></span>
+      </button>
+      <div class="dropdown-menu dropdown-menu-end p-0" style="width: 20rem;">
+        <p class="border-bottom px-3 py-2 small fw-semibold mb-0">Notificações</p>
+        <ul class="list-unstyled mb-0">
+          <li class="notif-item"><p style="color: var(--destructive);">SLA vencido</p><p>#10240 · Internet instável no 3º andar</p></li>
+          <li class="notif-item"><p>Novo chamado crítico</p><p>#10255 · Computador não liga</p></li>
+          <li class="notif-item"><p>Chamado sem responsável</p><p>#10251 · Acesso ao CRM negado</p></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="dropdown">
+      <button type="button" class="btn btn-ghost d-flex align-items-center gap-2 px-2" aria-label="Menu do usuário"
+              data-bs-toggle="dropdown" aria-expanded="false">
+        <span class="avatar-fallback" id="user-iniciais"></span>
+        <span class="small fw-medium d-none d-md-inline" id="user-nome-topo"></span>
+      </button>
+      <ul class="dropdown-menu dropdown-menu-end" style="width: 14rem;">
+        <li class="px-3 py-2">
+          <p class="small fw-medium mb-0" id="user-nome-menu"></p>
+          <p class="small text-muted-fg mb-0" id="user-email-menu"></p>
+        </li>
+        <li><hr class="dropdown-divider" /></li>
+        <li><a class="dropdown-item" href="#" data-not-implemented>Configurações</a></li>
+        <li><button type="button" class="dropdown-item d-flex align-items-center gap-2" id="btn-sair">
+          <i class="bi bi-box-arrow-right" aria-hidden="true"></i> Sair
+        </button></li>
+      </ul>
+    </div>
+  </div>
+</header>

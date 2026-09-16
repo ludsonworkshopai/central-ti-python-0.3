@@ -1,0 +1,67 @@
+<div class="d-flex flex-wrap align-items-start justify-content-between gap-2 mb-4">
+  <div>
+    <h1 class="fs-4 fw-semibold mb-1">Equipe</h1>
+    <p class="small text-muted-fg mb-0">Cadastre e gerencie os usuários com acesso à Central de TI.</p>
+  </div>
+  <button type="button" class="btn btn-primary d-inline-flex align-items-center gap-1" data-bs-toggle="modal" data-bs-target="#modalNovoUsuario">
+    <i class="bi bi-person-plus" aria-hidden="true"></i> Novo usuário
+  </button>
+</div>
+
+<form id="form-filtros-equipe" class="equipe-filters card mb-3" role="search">
+  <div class="equipe-filters-search">
+    <label for="filtro-campo" class="visually-hidden">Pesquisar por</label>
+    <select id="filtro-campo" class="form-select" aria-label="Campo da pesquisa">
+      <option value="nome">Usuário</option>
+      <option value="email">E-mail</option>
+    </select>
+    <label for="filtro-busca" class="visually-hidden">Termo da pesquisa</label>
+    <input id="filtro-busca" type="search" class="form-control" placeholder="Pesquisar usuários" autocomplete="off" />
+  </div>
+  <div class="equipe-filters-role">
+    <label for="filtro-funcao" class="visually-hidden">Função</label>
+    <select id="filtro-funcao" class="form-select">
+      <option value="">Todas as funções</option>
+      <option value="0">Técnico</option>
+      <option value="1">Funcionário</option>
+    </select>
+  </div>
+  <button type="submit" class="btn btn-primary">Aplicar filtros</button>
+  <button type="button" id="btn-limpar-filtros" class="btn btn-ghost">Limpar</button>
+</form>
+
+<div class="card p-0 equipe-results">
+  <div id="equipe-vazio" class="state-box state-empty d-none m-3">
+    <span class="state-icon-circle"><i class="bi bi-people fs-5" aria-hidden="true"></i></span>
+    <h3 class="fs-6 fw-semibold mb-0">Nenhum usuário cadastrado</h3>
+    <p class="small text-muted-fg mb-0" style="max-width: 24rem;">Clique em "Novo usuário" para cadastrar o primeiro membro da equipe.</p>
+  </div>
+  <div class="table-responsive equipe-table-wrap">
+    <table class="table table-central equipe-table mb-0" id="tabela-equipe">
+      <thead><tr>
+        <th scope="col"><button type="button" class="equipe-sort" data-sort="nome" title="Ordenar por usuário" aria-label="Ordenar por usuário" data-bs-toggle="tooltip">Usuário <i class="bi bi-arrow-down-up" aria-hidden="true"></i></button></th>
+        <th scope="col"><button type="button" class="equipe-sort" data-sort="email" title="Ordenar por e-mail" aria-label="Ordenar por e-mail" data-bs-toggle="tooltip">E-mail <i class="bi bi-arrow-down-up" aria-hidden="true"></i></button></th>
+        <th scope="col"><button type="button" class="equipe-sort" data-sort="funcao" title="Ordenar por função" aria-label="Ordenar por função" data-bs-toggle="tooltip">Função <i class="bi bi-arrow-down-up" aria-hidden="true"></i></button></th>
+        <th scope="col"><button type="button" class="equipe-sort" data-sort="created_at" title="Ordenar por data de cadastro" aria-label="Ordenar por data de cadastro" data-bs-toggle="tooltip">Cadastrado em <i class="bi bi-arrow-down-up" aria-hidden="true"></i></button></th>
+        <th scope="col" class="text-end">Ações</th>
+      </tr></thead>
+      <tbody id="equipe-tbody"></tbody>
+    </table>
+  </div>
+  <div id="equipe-table-footer" class="equipe-table-footer d-none">
+    <label class="d-flex align-items-center gap-2 small text-muted-fg" for="usuarios-por-pagina">
+      Exibir
+      <select id="usuarios-por-pagina" class="form-select form-select-sm" aria-label="Cadastros por página">
+        <option value="10" selected>10</option>
+        <option value="20">20</option>
+        <option value="50">50</option>
+        <option value="100">100</option>
+      </select>
+      cadastros
+    </label>
+    <nav aria-label="Paginação de usuários">
+      <ul id="paginacao-usuarios" class="pagination pagination-sm mb-0"></ul>
+    </nav>
+  </div>
+  <div id="equipe-cards" class="equipe-cards d-none" aria-live="polite"></div>
+</div>

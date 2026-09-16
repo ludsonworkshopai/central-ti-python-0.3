@@ -1,0 +1,841 @@
+/* =====================================================================
+   Central de TI — style.css
+   Convertido de um projeto Lovable (React + Tailwind v4 + shadcn/ui)
+   para HTML + CSS + Bootstrap 5. Este arquivo:
+   1. Redefine os tokens de design (cores, raios, tipografia) extraídos
+      de src/styles.css do projeto original, em formato de variáveis CSS.
+   2. Sobrescreve variáveis do Bootstrap (--bs-*) para que os componentes
+      nativos (botões, cards, dropdowns...) usem a identidade visual certa.
+   3. Define classes customizadas para elementos que o Bootstrap não tem
+      pronto (bolhas de chat, badges de status/prioridade/SLA, sidebar).
+   ===================================================================== */
+
+/* ---------------------------------------------------------------------
+   1. Fontes — o projeto original referencia "Inter Tight" (corpo) e
+   "Plus Jakarta Sans" (títulos/display) via Google Fonts.
+   --------------------------------------------------------------------- */
+@import url("https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap");
+
+/* ---------------------------------------------------------------------
+   2. Tokens de design (copiados de src/styles.css, valores em oklch)
+   --------------------------------------------------------------------- */
+:root {
+  --radius: 0.75rem;
+  --radius-sm: 0.5rem;    /* var(--radius) - 4px  */
+  --radius-md: 0.625rem;  /* var(--radius) - 2px  */
+  --radius-lg: 0.75rem;   /* var(--radius)        */
+  --radius-xl: 1rem;      /* var(--radius) + 4px  */
+  --radius-2xl: 1.25rem;  /* var(--radius) + 8px  */
+
+  --background: oklch(0.98 0.005 250);
+  --foreground: oklch(0.22 0.03 255);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.22 0.03 255);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.22 0.03 255);
+  --primary: oklch(0.53 0.17 256);
+  --primary-foreground: oklch(0.99 0.005 250);
+  --secondary: oklch(0.955 0.012 253);
+  --secondary-foreground: oklch(0.3 0.04 256);
+  --muted: oklch(0.962 0.008 253);
+  --muted-foreground: oklch(0.52 0.03 256);
+  --accent: oklch(0.94 0.03 253);
+  --accent-foreground: oklch(0.35 0.08 256);
+  --destructive: oklch(0.58 0.21 25);
+  --destructive-foreground: oklch(0.99 0.005 250);
+  --success: oklch(0.6 0.14 155);
+  --success-foreground: oklch(0.99 0.005 250);
+  --warning: oklch(0.76 0.15 75);
+  --warning-foreground: oklch(0.28 0.06 70);
+  --info: oklch(0.62 0.12 240);
+  --info-foreground: oklch(0.99 0.005 250);
+  --border: oklch(0.91 0.012 253);
+  --input: oklch(0.91 0.012 253);
+  --ring: oklch(0.53 0.17 256);
+
+  --sidebar: oklch(0.99 0.004 250);
+  --sidebar-foreground: oklch(0.28 0.03 255);
+  --sidebar-accent: oklch(0.95 0.02 253);
+  --sidebar-accent-foreground: oklch(0.35 0.08 256);
+  --sidebar-border: oklch(0.92 0.012 253);
+
+  --font-sans: "Inter Tight", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+
+  /* ---- Overrides do Bootstrap 5.3+ (usa custom properties --bs-*) ---- */
+  --bs-body-font-family: var(--font-sans);
+  --bs-body-bg: var(--background);
+  --bs-body-color: var(--foreground);
+  --bs-border-color: var(--border);
+  --bs-border-radius: var(--radius-md);
+  --bs-border-radius-sm: var(--radius-sm);
+  --bs-border-radius-lg: var(--radius-xl);
+  --bs-border-radius-xl: var(--radius-2xl);
+  --bs-border-radius-pill: 999px;
+
+  --bs-primary: oklch(0.53 0.17 256);
+  --bs-primary-rgb: 43, 92, 178;
+  --bs-secondary: oklch(0.955 0.012 253);
+  --bs-secondary-rgb: 232, 236, 245;
+  --bs-success: oklch(0.6 0.14 155);
+  --bs-success-rgb: 45, 155, 108;
+  --bs-warning: oklch(0.76 0.15 75);
+  --bs-warning-rgb: 227, 165, 56;
+  --bs-danger: oklch(0.58 0.21 25);
+  --bs-danger-rgb: 202, 58, 46;
+  --bs-info: oklch(0.62 0.12 240);
+  --bs-info-rgb: 66, 118, 196;
+  --bs-link-color: var(--primary);
+  --bs-link-hover-color: var(--primary);
+  --bs-focus-ring-color: color-mix(in oklch, var(--ring) 50%, transparent);
+}
+
+/* ---------------------------------------------------------------------
+   3. Base
+   --------------------------------------------------------------------- */
+html, body {
+  height: 100%;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, .font-display {
+  font-family: var(--font-display);
+  letter-spacing: -0.015em;
+}
+
+a {
+  color: var(--primary);
+}
+
+:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+
+.text-muted-fg { color: var(--muted-foreground); }
+.bg-surface { background-color: var(--background); }
+.min-vh-100 { min-height: 100vh; }
+
+/* Larguras "container" equivalentes ao max-w-* do Tailwind usado no projeto */
+.container-chat { max-width: 48rem; }   /* max-w-3xl */
+.container-narrow { max-width: 42rem; } /* max-w-2xl */
+.container-form { max-width: 24rem; }   /* max-w-sm  */
+
+/* ---------------------------------------------------------------------
+   4. Animações (equivalentes a animate-fade-in / animate-bounce)
+   --------------------------------------------------------------------- */
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(4px); }
+  to   { opacity: 1; transform: none; }
+}
+.animate-fade-in { animation: fade-in 0.25s ease-out both; }
+
+@keyframes bounce-dot {
+  0%, 80%, 100% { transform: translateY(0); opacity: 0.6; }
+  40% { transform: translateY(-4px); opacity: 1; }
+}
+
+/* ---------------------------------------------------------------------
+   5. Botões — reproduz as variants do componente Button (shadcn)
+   --------------------------------------------------------------------- */
+.btn {
+  font-weight: 500;
+  border-radius: var(--radius-md);
+}
+.btn-primary {
+  background-color: var(--primary);
+  border-color: var(--primary);
+  color: var(--primary-foreground);
+}
+.btn-primary:hover, .btn-primary:focus {
+  background-color: color-mix(in oklch, var(--primary) 90%, black);
+  border-color: color-mix(in oklch, var(--primary) 90%, black);
+  color: var(--primary-foreground);
+}
+.btn-outline-primary {
+  border-color: var(--input);
+  background-color: var(--background);
+  color: var(--foreground);
+}
+.btn-outline-primary:hover, .btn-outline-primary:focus {
+  background-color: var(--accent);
+  color: var(--accent-foreground);
+  border-color: var(--input);
+}
+.btn-ghost {
+  background: transparent;
+  border: none;
+  color: var(--foreground);
+}
+.btn-ghost:hover { background-color: var(--accent); color: var(--accent-foreground); }
+.btn-link-quiet {
+  background: none;
+  border: none;
+  padding: 0;
+  color: var(--primary);
+  font-weight: 500;
+  text-underline-offset: 4px;
+}
+.btn-link-quiet:hover { text-decoration: underline; }
+
+.btn-pill {
+  border-radius: 999px;
+  background-color: var(--card);
+  border-color: var(--border);
+  color: var(--foreground);
+  font-weight: 400;
+}
+.btn-pill:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+  background-color: var(--card);
+}
+
+/* ---------------------------------------------------------------------
+   6. Cards
+   --------------------------------------------------------------------- */
+.card {
+  background-color: var(--card);
+  color: var(--card-foreground);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+}
+
+/* ---------------------------------------------------------------------
+   7. Campos de formulário
+   --------------------------------------------------------------------- */
+.form-control, .form-select {
+  background-color: var(--background);
+  border-color: var(--input);
+  color: var(--foreground);
+  border-radius: var(--radius-md);
+  box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+}
+.form-control:focus, .form-select:focus {
+  border-color: var(--ring);
+  box-shadow: 0 0 0 1px var(--ring);
+}
+.form-control::placeholder { color: var(--muted-foreground); }
+.form-label { font-size: 0.875rem; font-weight: 500; }
+.form-check-input:checked {
+  background-color: var(--primary);
+  border-color: var(--primary);
+}
+
+/* ---------------------------------------------------------------------
+   8. Cabeçalho / navegação pública
+   --------------------------------------------------------------------- */
+.public-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  border-bottom: 1px solid var(--border);
+  background-color: color-mix(in oklch, var(--background) 85%, transparent);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  height: 4rem;
+}
+.brand-mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: var(--radius-md);
+  background-color: var(--primary);
+  color: var(--primary-foreground);
+  flex-shrink: 0;
+}
+.brand-name {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1rem;
+  letter-spacing: -0.015em;
+}
+
+/* ---------------------------------------------------------------------
+   9. Chat público
+   --------------------------------------------------------------------- */
+.chat-progress-track {
+  height: 0.375rem;
+  border-radius: 999px;
+  background-color: color-mix(in oklch, var(--primary) 20%, transparent);
+  overflow: hidden;
+}
+.chat-progress-bar {
+  height: 100%;
+  background-color: var(--primary);
+  transition: width 0.3s ease;
+}
+
+.chat-messages { padding-block: 1rem; display: flex; flex-direction: column; gap: 1rem; }
+
+.chat-row { display: flex; width: 100%; gap: 0.625rem; }
+.chat-row.from-bot { justify-content: flex-start; }
+.chat-row.from-user { justify-content: flex-end; }
+
+.chat-avatar {
+  margin-top: 0.125rem;
+  display: flex;
+  height: 2rem;
+  width: 2rem;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+}
+.chat-avatar.bot { background-color: color-mix(in oklch, var(--primary) 10%, transparent); color: var(--primary); }
+.chat-avatar.user { background-color: var(--accent); color: var(--accent-foreground); }
+
+.chat-bubble {
+  max-width: 82%;
+  border-radius: var(--radius-2xl);
+  padding: 0.625rem 1rem;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+}
+.chat-bubble.bot {
+  border-top-left-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  background-color: var(--card);
+  color: var(--card-foreground);
+}
+.chat-bubble.user {
+  border-top-right-radius: var(--radius-sm);
+  background-color: var(--primary);
+  color: var(--primary-foreground);
+}
+
+.chat-typing {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  border-radius: var(--radius-2xl);
+  border-top-left-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  background-color: var(--card);
+  padding: 0.75rem 1rem;
+}
+.chat-typing span {
+  height: 0.375rem;
+  width: 0.375rem;
+  border-radius: 999px;
+  background-color: color-mix(in oklch, var(--muted-foreground) 60%, transparent);
+  animation: bounce-dot 1.2s infinite ease-in-out;
+}
+.chat-typing span:nth-child(2) { animation-delay: 0.15s; }
+.chat-typing span:nth-child(3) { animation-delay: 0.3s; }
+
+.chat-quick-replies {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  padding-left: 2.625rem; /* alinhado ao avatar (2rem + gap 0.625rem) */
+}
+
+.chat-incident-warning {
+  margin-left: 2.625rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  border-radius: var(--radius-xl);
+  border: 1px solid color-mix(in oklch, var(--warning) 40%, transparent);
+  background-color: color-mix(in oklch, var(--warning) 10%, transparent);
+  padding: 0.75rem 1rem;
+  font-size: 0.875rem;
+  color: var(--warning-foreground);
+}
+
+.chat-summary-card { padding: 1.25rem; }
+.chat-summary-card dt { font-size: 0.75rem; color: var(--muted-foreground); }
+.chat-summary-card dd { font-weight: 500; margin-bottom: 0; }
+
+.chat-composer {
+  position: sticky;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-top: 1px solid var(--border);
+  background-color: color-mix(in oklch, var(--background) 90%, transparent);
+  backdrop-filter: blur(8px);
+  padding-block: 0.75rem;
+}
+
+.success-icon-circle {
+  display: flex;
+  height: 3.5rem;
+  width: 3.5rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  background-color: color-mix(in oklch, var(--success) 12%, transparent);
+  color: var(--success);
+  margin-inline: auto;
+}
+
+/* ---------------------------------------------------------------------
+   10. Badges: status, prioridade, SLA
+   --------------------------------------------------------------------- */
+.pill-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  padding: 0.125rem 0.625rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  white-space: nowrap;
+}
+.pill-badge svg, .pill-badge i { width: 0.75rem; height: 0.75rem; }
+
+.status-novo { background-color: color-mix(in oklch, var(--info) 10%, transparent); color: var(--info); border-color: color-mix(in oklch, var(--info) 25%, transparent); }
+.status-triagem { background-color: var(--accent); color: var(--accent-foreground); border-color: var(--border); }
+.status-aguardando_atendimento { background-color: color-mix(in oklch, var(--warning) 15%, transparent); color: var(--warning-foreground); border-color: color-mix(in oklch, var(--warning) 30%, transparent); }
+.status-em_andamento { background-color: color-mix(in oklch, var(--primary) 10%, transparent); color: var(--primary); border-color: color-mix(in oklch, var(--primary) 25%, transparent); }
+.status-aguardando_solicitante { background-color: var(--muted); color: var(--muted-foreground); border-color: var(--border); }
+.status-resolvido { background-color: color-mix(in oklch, var(--success) 12%, transparent); color: var(--success); border-color: color-mix(in oklch, var(--success) 30%, transparent); }
+.status-encerrado { background-color: var(--muted); color: var(--muted-foreground); border-color: var(--border); }
+
+.priority-baixa { background-color: var(--muted); color: var(--muted-foreground); border-color: var(--border); }
+.priority-media { background-color: color-mix(in oklch, var(--info) 10%, transparent); color: var(--info); border-color: color-mix(in oklch, var(--info) 25%, transparent); }
+.priority-alta { background-color: color-mix(in oklch, var(--warning) 20%, transparent); color: var(--warning-foreground); border-color: color-mix(in oklch, var(--warning) 35%, transparent); }
+.priority-critica { background-color: color-mix(in oklch, var(--destructive) 12%, transparent); color: var(--destructive); border-color: color-mix(in oklch, var(--destructive) 30%, transparent); }
+
+.sla-ok { background-color: color-mix(in oklch, var(--success) 12%, transparent); color: var(--success); border-color: color-mix(in oklch, var(--success) 30%, transparent); }
+.sla-atencao { background-color: color-mix(in oklch, var(--warning) 20%, transparent); color: var(--warning-foreground); border-color: color-mix(in oklch, var(--warning) 35%, transparent); }
+.sla-vencido { background-color: color-mix(in oklch, var(--destructive) 12%, transparent); color: var(--destructive); border-color: color-mix(in oklch, var(--destructive) 30%, transparent); }
+.sla-concluido { background-color: var(--muted); color: var(--muted-foreground); border-color: var(--border); }
+
+/* ---------------------------------------------------------------------
+   11. Estados: vazio, carregando, erro
+   --------------------------------------------------------------------- */
+.state-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  text-align: center;
+  padding-block: 3.5rem;
+}
+.state-empty {
+  border: 1px dashed var(--border);
+  border-radius: var(--radius-xl);
+  background-color: color-mix(in oklch, var(--card) 60%, transparent);
+  padding-inline: 1.5rem;
+}
+.state-icon-circle {
+  border-radius: 999px;
+  background-color: var(--accent);
+  color: var(--accent-foreground);
+  padding: 0.75rem;
+  display: inline-flex;
+}
+.state-error {
+  border: 1px solid color-mix(in oklch, var(--destructive) 30%, transparent);
+  border-radius: var(--radius-xl);
+  background-color: color-mix(in oklch, var(--destructive) 5%, transparent);
+  padding-inline: 1.5rem;
+}
+
+/* ---------------------------------------------------------------------
+   12. Área autenticada — sidebar + topbar (dashboard.html)
+   --------------------------------------------------------------------- */
+.app-sidebar {
+  position: fixed;
+  inset-block: 0;
+  left: 0;
+  z-index: 30;
+  width: 16rem;
+  display: none;
+  flex-direction: column;
+  border-right: 1px solid var(--sidebar-border);
+  background-color: var(--sidebar);
+}
+.app-sidebar .brand-row { padding: 1rem 1rem; }
+
+.sidebar-nav { display: flex; flex-direction: column; gap: 0.25rem; padding: 0.75rem; }
+.sidebar-nav .nav-link {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  border-radius: var(--radius-md);
+  padding: 0.5rem 0.75rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--muted-foreground);
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+.sidebar-nav .nav-link:hover {
+  background-color: color-mix(in oklch, var(--sidebar-accent) 60%, transparent);
+  color: var(--sidebar-accent-foreground);
+}
+.sidebar-nav .nav-link.active {
+  background-color: var(--sidebar-accent);
+  color: var(--sidebar-accent-foreground);
+}
+.sidebar-nav .nav-link i { font-size: 1rem; width: 1rem; text-align: center; flex-shrink: 0; }
+
+.sidebar-demo-note {
+  margin: 0.75rem;
+  border-radius: var(--radius-md);
+  background-color: color-mix(in oklch, var(--accent) 60%, transparent);
+  color: var(--accent-foreground);
+  padding: 0.75rem;
+  font-size: 0.75rem;
+}
+.sidebar-demo-note p:first-child { font-weight: 500; margin-bottom: 0.25rem; }
+.sidebar-demo-note p:last-child { color: var(--muted-foreground); margin-bottom: 0; }
+
+.app-content-wrap { padding-left: 0; }
+
+.app-mobile-navigation {
+  display: flex;
+  flex-direction: column;
+  border-bottom: 1px solid var(--border);
+  background-color: color-mix(in oklch, var(--background) 85%, transparent);
+  backdrop-filter: blur(8px);
+}
+.app-mobile-navigation .brand-row {
+  min-height: 3.5rem;
+  padding: 0.75rem;
+  justify-content: center;
+}
+.app-mobile-navigation-list {
+  display: flex;
+  align-items: stretch;
+  gap: 0.25rem;
+  width: 100%;
+  min-height: 3.25rem;
+  overflow: hidden;
+  padding: 0.375rem 0.75rem;
+}
+.app-mobile-navigation .nav-link {
+  display: inline-flex;
+  flex: 1 1 0;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: var(--radius-md);
+  padding: 0.5rem 0.625rem;
+  color: var(--muted-foreground);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.app-mobile-navigation .nav-link:hover,
+.app-mobile-navigation .nav-link.active {
+  background-color: var(--sidebar-accent);
+  color: var(--sidebar-accent-foreground);
+}
+.app-mobile-navigation .nav-link i { font-size: 1rem; }
+
+.app-topbar {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  height: 4rem;
+  border-bottom: 1px solid var(--border);
+  background-color: color-mix(in oklch, var(--background) 85%, transparent);
+  backdrop-filter: blur(8px);
+  padding-inline: 0.75rem;
+}
+
+.app-search { position: relative; flex: 1 1 auto; max-width: 36rem; }
+.app-search i {
+  position: absolute;
+  left: 0.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--muted-foreground);
+  pointer-events: none;
+}
+.app-search .form-control { padding-left: 2.25rem; }
+
+.app-main {
+  max-width: 87.5rem; /* 1400px */
+  margin-inline: auto;
+  padding: 1.25rem 0.75rem;
+}
+
+.notif-item { padding: 0.75rem 1rem; font-size: 0.875rem; border-bottom: 1px solid var(--border); }
+.notif-item:last-child { border-bottom: none; }
+.notif-item p:first-child { font-weight: 500; margin-bottom: 0.125rem; }
+.notif-item p:last-child { color: var(--muted-foreground); margin-bottom: 0; }
+.notif-dot {
+  position: absolute;
+  right: 0.5rem;
+  top: 0.5rem;
+  height: 0.5rem;
+  width: 0.5rem;
+  border-radius: 999px;
+  background-color: var(--destructive);
+}
+
+.avatar-fallback {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 2rem;
+  width: 2rem;
+  border-radius: 999px;
+  background-color: color-mix(in oklch, var(--primary) 10%, transparent);
+  color: var(--primary);
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.dropdown-menu, .popover {
+  border-color: var(--border);
+  border-radius: var(--radius-xl);
+  box-shadow: 0 4px 14px 0 rgb(0 0 0 / 0.08);
+}
+.dropdown-item:active { background-color: var(--accent); color: var(--accent-foreground); }
+.offcanvas { background-color: var(--sidebar); }
+
+/* Breakpoint customizado — o layout original quebra em 1024px (Tailwind
+   "lg"), enquanto o "lg" do Bootstrap é 992px. Usamos min-width: 1024px
+   diretamente para bater exatamente com o original em vez do d-lg-*. */
+@media (min-width: 1024px) {
+  .app-sidebar { display: flex; }
+  .app-content-wrap { padding-left: 16rem; }
+  .app-mobile-navigation { display: none; }
+  .sidebar-toggle-btn { display: none; }
+}
+@media (max-width: 1023.98px) {
+  .app-mobile-navigation { position: sticky; top: 0; z-index: 25; }
+  .app-topbar { top: 6.75rem; }
+  .app-search { max-width: 100%; }
+  .app-mobile-navigation .nav-link-label { display: none; }
+}
+@media (max-width: 575.98px) {
+  .app-mobile-navigation-list { gap: 0.125rem; padding-inline: 0.375rem; }
+  .app-mobile-navigation .nav-link { padding-inline: 0.375rem; }
+}
+
+/* A tabela é mantida no desktop; no mobile, os mesmos registros usam cartões
+   próprios para preservar hierarquia, leitura e ações sem rolagem horizontal. */
+.equipe-cards { display: none; }
+.equipe-filters {
+  display: grid;
+  grid-template-columns: minmax(16rem, 1fr) minmax(11rem, 14rem) auto auto;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem;
+}
+.equipe-filters-search { display: flex; min-width: 0; }
+.equipe-filters-search .form-select { flex: 0 0 7rem; border-top-right-radius: 0; border-bottom-right-radius: 0; }
+.equipe-filters-search .form-control { min-width: 0; border-top-left-radius: 0; border-bottom-left-radius: 0; }
+.equipe-sort {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-weight: inherit;
+  padding: 0;
+}
+.equipe-sort:hover, .equipe-sort:focus-visible { color: var(--primary); }
+.equipe-sort i { font-size: 0.75rem; }
+.equipe-table-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  border-top: 1px solid var(--border);
+  padding: 0.75rem;
+}
+.equipe-table-footer.d-none { display: none; }
+.equipe-table-footer .form-select { width: auto; min-width: 4.25rem; }
+@media (min-width: 768px) {
+  .equipe-table-wrap {
+    height: clamp(14rem, calc(100dvh - 20rem), 34rem);
+    overflow-y: auto;
+  }
+  .equipe-table thead th {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    background-color: var(--card);
+    box-shadow: 0 1px 0 var(--border);
+  }
+}
+@media (max-width: 767.98px) {
+  /* O topo ocupa sua altura natural; apenas os resultados usam o restante
+     da janela. Não estimar essa altura a partir do número de filtros. */
+  body[data-page="equipe"] { height: 100dvh; overflow: hidden; }
+  body[data-page="equipe"] .app-content-wrap {
+    display: flex;
+    flex-direction: column;
+    height: 100dvh;
+    min-height: 0;
+  }
+  body[data-page="equipe"] .app-mobile-navigation,
+  body[data-page="equipe"] .app-topbar { flex-shrink: 0; position: relative; top: auto; }
+  body[data-page="equipe"] .app-main {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 0;
+    min-height: 0;
+    width: 100%;
+  }
+  body[data-page="equipe"] .app-main > :not(.equipe-results) { flex-shrink: 0; }
+  .equipe-results { flex: 1 1 0; min-height: 0; }
+  .equipe-filters {
+    grid-template-columns: 1fr 1fr;
+    padding: 0.75rem;
+  }
+  .equipe-filters-search { grid-column: 1 / -1; }
+  .equipe-filters .btn { width: 100%; }
+  #btn-limpar-filtros { grid-column: 1 / -1; }
+  .equipe-table-wrap { display: none; }
+  .equipe-table-footer { display: none; }
+  .equipe-cards {
+    display: grid;
+    grid-auto-rows: max-content;
+    align-content: start;
+    flex: 1 1 0;
+    min-height: 0;
+    gap: 0.75rem;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    padding: 0.75rem;
+  }
+  .equipe-cards.d-none { display: none; }
+  .equipe-user-card {
+    position: relative;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-xl);
+    background-color: var(--card);
+    box-shadow: 0 10px 24px -18px rgb(0 0 0 / 0.38);
+  }
+  .equipe-role-rail {
+    position: absolute;
+    inset: 0 auto 0 0;
+    width: 0.25rem;
+    background-color: var(--muted-foreground);
+  }
+  .equipe-user-card-tecnico .equipe-role-rail { background-color: var(--primary); }
+  .equipe-user-card-body { padding: 1.25rem 1.25rem 1rem 1.5rem; }
+  .equipe-user-identity {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    min-width: 0;
+  }
+  .equipe-user-avatar {
+    display: grid;
+    flex: 0 0 3.25rem;
+    width: 3.25rem;
+    height: 3.25rem;
+    place-items: center;
+    border-radius: var(--radius-lg);
+    background: linear-gradient(155deg, color-mix(in oklch, var(--primary) 72%, white), var(--primary));
+    color: var(--primary-foreground);
+    font-size: 1.125rem;
+    font-weight: 700;
+  }
+  .equipe-user-card-funcionario .equipe-user-avatar {
+    background: color-mix(in oklch, var(--muted-foreground) 76%, white);
+  }
+  .equipe-user-name { min-width: 0; overflow-wrap: anywhere; }
+  .equipe-role-badge {
+    display: inline-flex;
+    flex: 0 0 auto;
+    align-items: center;
+    gap: 0.35rem;
+    margin-left: auto;
+    border-radius: 999px;
+    background-color: color-mix(in oklch, var(--muted-foreground) 12%, transparent);
+    color: var(--muted-foreground);
+    padding: 0.3rem 0.625rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+  .equipe-role-badge > span { width: 0.375rem; height: 0.375rem; border-radius: 50%; background-color: currentColor; }
+  .equipe-user-card-tecnico .equipe-role-badge {
+    background-color: color-mix(in oklch, var(--primary) 12%, transparent);
+    color: var(--primary);
+  }
+  .equipe-user-details {
+    display: grid;
+    grid-template-columns: 6.75rem minmax(0, 1fr);
+    gap: 0.625rem 0.75rem;
+    margin-top: 1.1rem;
+    border-top: 1px solid var(--border);
+    padding-top: 1rem;
+    font-size: 0.875rem;
+  }
+  .equipe-user-details dt { color: var(--muted-foreground); font-weight: 500; }
+  .equipe-user-details dd { margin: 0; overflow-wrap: anywhere; font-weight: 500; text-align: right; }
+  .equipe-card-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.5rem;
+    border-top: 1px solid var(--border);
+    background-color: color-mix(in oklch, var(--muted) 45%, var(--card));
+    padding: 0.75rem 1.25rem 0.75rem 1.5rem;
+  }
+  .equipe-card-action {
+    display: grid;
+    width: 2.25rem;
+    height: 2.25rem;
+    place-items: center;
+    border-radius: var(--radius-md);
+  }
+  .equipe-cards-status { padding: 1.5rem; text-align: center; }
+}
+@media (max-width: 399.98px) {
+  .equipe-filters { grid-template-columns: 1fr; }
+  .equipe-filters-role { grid-column: 1 / -1; }
+  .equipe-user-identity { align-items: flex-start; flex-wrap: wrap; }
+  .equipe-role-badge { margin-left: 4rem; }
+}
+
+/* Empty placeholder da área principal do dashboard (ver README do projeto
+   convertido — no repositório original a rota "/app" não tem nenhuma
+   página filha implementada, então o conteúdo real fica vazio). */
+.dashboard-placeholder {
+  border: 1px dashed var(--border);
+  border-radius: var(--radius-xl);
+  padding: 3rem 1.5rem;
+  text-align: center;
+  color: var(--muted-foreground);
+}
+
+/* ---------------------------------------------------------------------
+   13. Toast simples usado para ações "ainda não implementadas"
+   --------------------------------------------------------------------- */
+.toast { border-color: var(--border); border-radius: var(--radius-xl); }
+#system-alerts {
+  position: fixed;
+  right: 1rem;
+  bottom: 1rem;
+  z-index: 2000;
+  width: min(28rem, calc(100vw - 2rem));
+  max-height: calc(100dvh - 2rem);
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: .75rem;
+  pointer-events: none;
+}
+#system-alerts .alert { pointer-events: auto; }
