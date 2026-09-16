@@ -3,11 +3,19 @@ from datetime import timedelta
 from pathlib import Path
 from dotenv import load_dotenv
 from flask import Flask
+from werkzeug.middleware.proxy_fix import ProxyFix
 
 load_dotenv(Path(__file__).with_name('.env'))
 from routes import Routes
 
 app = Flask(__name__)
+
+app.wsgi_app = ProxyFix(
+    app.wsgi_app,
+    x_for=1,
+    x_proto=1,
+    x_host=1,
+)
 
 secret = os.environ.get('SECRET_KEY')
 if not secret:
